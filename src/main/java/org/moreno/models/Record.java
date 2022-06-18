@@ -27,7 +27,7 @@ public class Record extends Contabilidad {
     @DecimalMin(value = "0.0",message = "Precio")
     private Double price;
     @ManyToOne
-    @JoinColumn(name = "fk_product")
+    @JoinColumn(name = "fk_product",nullable = false)
     @NotNull(message = "Producto")
     private Product product;
     @Column

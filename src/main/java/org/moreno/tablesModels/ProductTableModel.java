@@ -1,7 +1,5 @@
 package org.moreno.tablesModels;
-
 import org.moreno.models.Product;
-import org.moreno.models.Record;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -9,11 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 public class ProductTableModel extends AbstractTableModel {
-    private String[] columnNames = {"FECHA","TIPO/DOC","NUM/DOC","DESCRIPCIÓN","CANT","PRECIO","TOTAL","SALDO/CANT","SALDO/PRECIO","SALDO/TOTAL"};
-    private Class[] m_colTypes = {Date.class,String.class,String.class,String.class,Integer.class,Double.class,Double.class,Integer.class,Double.class,Double.class};
-    private List<Record> vector;
+    private String[] columnNames = {"ID","CATEGORÍA","PRODUCTO","STOCK ACTUAL","UNIDAD DE MEDIDA","ULTIMA INGRESO","ULTIMO PRECIO"};
+    private Class[] m_colTypes = {Integer.class,String.class,String.class,Integer.class,String.class,Date.class,Double.class};
+    private List<Product> vector;
 
-    public ProductTableModel(List<Record> vector){
+    public ProductTableModel(List<Product> vector){
         this.vector=vector;
     }
     @Override
@@ -37,31 +35,25 @@ public class ProductTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Record record=vector.get(rowIndex);
+        Product product=vector.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return record.getDate();
+                return product.getId();
             case 1:
-                return getTipoDocumento(record);
+                return product.getCategory().getName();
             case 2:
-                return record.getNumberDocument();
+                return product.getName();
             case 3:
-                return record.getDescription();
+                return product.getStockActual();
             case 4:
-                return record.getQuantity();
+                return product.getUnitMeasure();
             case 5:
-                return record.getPrice();
-            case 6:
-                return record.getSubTotal();
-            case 7:
-                return record.getQuantityAcount();
-            case 8:
-                return record.getPrice();
+                return product.getLastEntrance();
             default:
-                return record.getSubTotalAcount();
+                return product.getLastPrice();
         }
     }
-    public Record get(int index){
+    public Product get(int index){
         return vector.get(index);
     }
     @Override
@@ -70,13 +62,5 @@ public class ProductTableModel extends AbstractTableModel {
             return true;
         }
         return false;
-    }
-    private String getTipoDocumento(Record record){
-        switch (record.getTypeDocument()){
-            case 0:
-                return "Boleta";
-            default:
-                return "Factura";
-        }
     }
 }

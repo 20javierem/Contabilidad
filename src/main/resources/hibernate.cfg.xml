@@ -12,6 +12,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="hbm2ddl.auto">create-drop</property>
+        <mapping class="org.moreno.models.Category"/>
         <mapping class="org.moreno.models.Product"/>
         <mapping class="org.moreno.models.Record"/>
     </session-factory>
