@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.moreno.views.VPrincipal">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="577" height="586"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="385bb" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <toolbar id="76f3c">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="20"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="72c1c" class="javax.swing.JButton" binding="btnNuevaVenta">
+                <constraints/>
+                <properties>
+                  <icon value="org/moreno/Icons/x32/ventasSeleccionado.png"/>
+                  <text value="Nueva venta"/>
+                </properties>
+              </component>
+              <component id="3ed60" class="javax.swing.JButton" binding="btnNuevoInventario">
+                <constraints/>
+                <properties>
+                  <icon value="org/moreno/Icons/x32/inventario.png"/>
+                  <text value="Inventario"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+        </children>
+      </grid>
+      <grid id="9c37" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="a4749" class="org.moreno.components.DnDTabbedPane" binding="tabPane">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <grid id="18518" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <splitpane id="743f7" binding="splitPane">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="200"/>
+              </grid>
+            </constraints>
+            <properties>
+              <dividerSize value="0"/>
+              <font/>
+            </properties>
+            <border type="none">
+              <title-color color="-4473925"/>
+              <color color="-4473925"/>
+            </border>
+            <children>
+              <grid id="a0869" binding="panelControles" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="0">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <background color="-12566462"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="ee55f" class="javax.swing.JSeparator">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <grid id="7ac8f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="5" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12811323"/>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="dcc00" class="javax.swing.JButton" binding="btnInventario">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="80" height="70"/>
+                            <preferred-size width="80" height="70"/>
+                            <maximum-size width="80" height="70"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-4342339"/>
+                          <contentAreaFilled value="false"/>
+                          <focusPainted value="false"/>
+                          <font size="16"/>
+                          <foreground color="-1"/>
+                          <horizontalAlignment value="0"/>
+                          <horizontalTextPosition value="0"/>
+                          <icon value="org/moreno/Icons/x32/inventarioDefecto.png"/>
+                          <iconTextGap value="-4"/>
+                          <rolloverEnabled value="true"/>
+                          <text value="Inventario"/>
+                          <verticalAlignment value="0"/>
+                          <verticalTextPosition value="3"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="e1e0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="5" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12811323"/>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="52b75" class="javax.swing.JButton" binding="btnVentas">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="80" height="70"/>
+                            <preferred-size width="80" height="70"/>
+                            <maximum-size width="80" height="70"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-4342339"/>
+                          <contentAreaFilled value="false"/>
+                          <focusPainted value="false"/>
+                          <font size="16"/>
+                          <foreground color="-1"/>
+                          <horizontalAlignment value="0"/>
+                          <horizontalTextPosition value="0"/>
+                          <icon value="org/moreno/Icons/x32/ventasDefecto.png"/>
+                          <iconTextGap value="-4"/>
+                          <rolloverEnabled value="true"/>
+                          <text value="Ventas"/>
+                          <verticalAlignment value="0"/>
+                          <verticalTextPosition value="3"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="60879" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="2" left="0" bottom="2" right="0"/>
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <hspacer id="47430">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="a365a">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <component id="c93b2" class="javax.swing.JButton" binding="btnSalir">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <icon value="org/moreno/Icons/x16/iniciar-sesion.png"/>
+                          <maximumSize width="38" height="38"/>
+                          <minimumSize width="38" height="38"/>
+                          <preferredSize width="38" height="38"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <vspacer id="f4cc9">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </vspacer>
+                  <grid id="ce3b2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="5" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12811323"/>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="1e25a" class="javax.swing.JButton" binding="btnAlmacen">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="80" height="70"/>
+                            <preferred-size width="80" height="70"/>
+                            <maximum-size width="80" height="70"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-4342339"/>
+                          <contentAreaFilled value="false"/>
+                          <focusPainted value="false"/>
+                          <font size="16"/>
+                          <foreground color="-1"/>
+                          <horizontalAlignment value="0"/>
+                          <horizontalTextPosition value="0"/>
+                          <icon value="org/moreno/Icons/x32/almacenDefecto.png"/>
+                          <iconTextGap value="-4"/>
+                          <rolloverEnabled value="true"/>
+                          <text value="Almacén"/>
+                          <verticalAlignment value="0"/>
+                          <verticalTextPosition value="3"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="a5413" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="5" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12811323"/>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="c52e4" class="javax.swing.JButton" binding="btnGestionar">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="80" height="70"/>
+                            <preferred-size width="80" height="70"/>
+                            <maximum-size width="80" height="70"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <background color="-4342339"/>
+                          <contentAreaFilled value="false"/>
+                          <focusPainted value="false"/>
+                          <font size="16"/>
+                          <foreground color="-1"/>
+                          <horizontalAlignment value="0"/>
+                          <horizontalTextPosition value="0"/>
+                          <icon value="org/moreno/Icons/x32/gestionarDefecto.png"/>
+                          <iconTextGap value="-4"/>
+                          <rolloverEnabled value="true"/>
+                          <text value="Gestionar"/>
+                          <verticalAlignment value="0"/>
+                          <verticalTextPosition value="3"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="5e3d9" binding="panelMenus" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </splitpane>
+          <grid id="d8a55" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="-1">
+            <margin top="0" left="10" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="33"/>
+                <preferred-size width="-1" height="33"/>
+                <maximum-size width="-1" height="33"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-12566462"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="a1783" class="javax.swing.JLabel" binding="lblUsuario">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="16"/>
+                  <foreground color="-1"/>
+                  <text value="Usuario"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
