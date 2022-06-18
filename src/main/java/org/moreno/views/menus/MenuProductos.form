@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.moreno.views.menus.MenuProductos">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="10">
+    <margin top="10" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="20" y="20" width="140" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-4342339"/>
+      <maximumSize width="140" height="2147483647"/>
+      <minimumSize width="140" height="157"/>
+      <preferredSize width="140" height="149"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="f5958" class="javax.swing.JButton" binding="btnProducts">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <focusPainted value="false"/>
+          <font size="14"/>
+          <text value="&lt;html&gt;&lt;center&gt;Productos&lt;center&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+      <vspacer id="11469">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="27eb6" class="javax.swing.JButton" binding="btnEntradasCanceladas">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <focusPainted value="false"/>
+          <font size="14"/>
+          <text value="&lt;html&gt;&lt;center&gt;Entradas canceladas&lt;center&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+      <component id="b0f35" class="javax.swing.JButton" binding="btnCardex">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <focusPainted value="false"/>
+          <font size="14"/>
+          <text value="&lt;html&gt;&lt;center&gt;Cardex de productos&lt;center&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

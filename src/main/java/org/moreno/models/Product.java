@@ -15,6 +15,9 @@ public class Product extends Contabilidad {
     @Column
     @NotEmpty(message = "Nombre")
     private String name;
+    @Column
+    @NotEmpty(message = "Cantidad")
+    private Integer stockActual;
 
     public Integer getId() {
         return id;
@@ -30,5 +33,13 @@ public class Product extends Contabilidad {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getStockActual() {
+        return stockActual;
+    }
+
+    public void setStockActual(Integer stockActual) {
+        this.stockActual = stockActual;
     }
 }
