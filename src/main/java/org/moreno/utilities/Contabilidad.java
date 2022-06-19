@@ -8,8 +8,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Contabilidad {
-    protected static Session session;
-    protected static CriteriaBuilder builder;
+    public static Session session;
+    public static CriteriaBuilder builder;
 
     private static void buildSessionFactory() {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
@@ -23,7 +23,9 @@ public class Contabilidad {
     public static void close(){
         session.close();
     }
-
+    public void refresh(){
+        session.refresh(this);
+    }
     public void save(){
         session.beginTransaction();
         session.persist(this);

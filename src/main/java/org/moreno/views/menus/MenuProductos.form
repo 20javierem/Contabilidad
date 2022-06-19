@@ -15,7 +15,7 @@
     <children>
       <component id="f5958" class="javax.swing.JButton" binding="btnProducts">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <focusPainted value="false"/>
@@ -30,7 +30,7 @@
       </vspacer>
       <component id="27eb6" class="javax.swing.JButton" binding="btnEntradasCanceladas">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <focusPainted value="false"/>
@@ -40,12 +40,12 @@
       </component>
       <component id="b0f35" class="javax.swing.JButton" binding="btnCardex">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <focusPainted value="false"/>
           <font size="14"/>
-          <text value="&lt;html&gt;&lt;center&gt;Cardex de productos&lt;center&gt;&lt;/html&gt;"/>
+          <text value="&lt;html&gt;&lt;center&gt;Registros&lt;center&gt;&lt;/html&gt;"/>
         </properties>
       </component>
     </children>

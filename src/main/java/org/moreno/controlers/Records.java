@@ -23,4 +23,11 @@ public class Records extends Contabilidad {
         todos = new Vector<>(session.createQuery(criteria).getResultList());
         return todos;
     }
+    public static Vector<Record> getUltimos100(){
+        criteria = builder.createQuery(Record.class);
+        root = criteria.from(Record.class);
+        criteria.select(root).orderBy(builder.desc(root.get("id")));
+        Vector<Record> p= new Vector<>(session.createQuery(criteria).setMaxResults(100).getResultList());
+        return p;
+    }
 }

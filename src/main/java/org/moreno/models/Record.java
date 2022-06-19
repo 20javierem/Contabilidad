@@ -18,10 +18,9 @@ public class Record extends Contabilidad {
     private Integer typeDocument;
     @Column
     private String numberDocument;
-    @Column
-    @NotEmpty(message = "Cantidad")
-    @Min(value = 1,message = "Cantidad")
-    private Integer quantity;
+    @Column@javax.validation.constraints.Digits(integer =10,fraction = 2,message = "Cantidad")
+    @DecimalMin(value = "0.0",message = "Precio")
+    private Double quantity;
     @Column
     @javax.validation.constraints.Digits(integer =10,fraction = 2,message = "Precio")
     @DecimalMin(value = "0.0",message = "Precio")
@@ -35,9 +34,7 @@ public class Record extends Contabilidad {
     @Column
     private Double subTotal;
     @Column
-    @NotEmpty(message = "Cantidad")
-    @Min(value = 1,message = "Cantidad")
-    private Integer quantityAcount;
+    private Double quantityAcount;
     @Column
     private Double subTotalAcount;
     @Column
@@ -72,11 +69,11 @@ public class Record extends Contabilidad {
         this.numberDocument = numberDocument;
     }
 
-    public Integer getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -112,11 +109,11 @@ public class Record extends Contabilidad {
         this.subTotal = subTotal;
     }
 
-    public Integer getQuantityAcount() {
+    public Double getQuantityAcount() {
         return quantityAcount;
     }
 
-    public void setQuantityAcount(Integer quantityAcount) {
+    public void setQuantityAcount(Double quantityAcount) {
         this.quantityAcount = quantityAcount;
     }
 

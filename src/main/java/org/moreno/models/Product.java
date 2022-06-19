@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.moreno.utilities.Contabilidad;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,20 +25,18 @@ public class Product extends Contabilidad {
     @NotNull(message = "CATEGORÍA")
     private Category category;
     @Column
-    @NotEmpty(message = "Cantidad")
-    private Integer stockActual;
+    private Double stockActual=0.0;
     @Column
     @NotEmpty(message = "Unida de medida")
     private String unitMeasure;
     @Column
-    @NotNull(message = "Fecha")
     private Date lastEntrance;
     @Column
-    @javax.validation.constraints.Digits(integer =10,fraction = 2,message = "Precio")
-    @DecimalMin(value = "0.0",message = "Precio")
     private Double lastPrice;
     @OneToMany(mappedBy = "product")
     private List<Record> records=new ArrayList<>();
+
+    private boolean active;
 
     public Integer getId() {
         return id;
@@ -54,11 +54,11 @@ public class Product extends Contabilidad {
         this.name = name;
     }
 
-    public Integer getStockActual() {
+    public Double getStockActual() {
         return stockActual;
     }
 
-    public void setStockActual(Integer stockActual) {
+    public void setStockActual(Double stockActual) {
         this.stockActual = stockActual;
     }
 
@@ -100,5 +100,29 @@ public class Product extends Contabilidad {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void updateForEntrance(Record record){
+        setLastPrice(record.getPrice());
+        setStockActual(getStockActual()+record.getQuantity());
+        setLastEntrance(record.getDate());
+        save();
+    }
+    public static class ListCellRenderer extends DefaultListCellRenderer {
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            if (value instanceof Product) {
+                value = ((Product) value).getName();
+            }
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            return this;
+        }
     }
 }

@@ -6,8 +6,12 @@ import com.intellij.uiDesigner.core.Spacer;
 import org.moreno.App;
 import org.moreno.components.DnDTabbedPane;
 import org.moreno.components.TabPane;
+import org.moreno.controlers.Categorys;
 import org.moreno.controlers.Products;
+import org.moreno.controlers.Records;
+import org.moreno.models.Category;
 import org.moreno.models.Product;
+import org.moreno.models.Record;
 import org.moreno.utilities.Contabilidad;
 import org.moreno.utilities.Utilities;
 import org.moreno.views.menus.MenuProductos;
@@ -20,6 +24,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 
 public class VPrincipal extends JFrame {
     private JPanel contentPane;
@@ -34,7 +39,10 @@ public class VPrincipal extends JFrame {
     private DnDTabbedPane tabContenido;
     private JPanel panelDeTabPane;
     private MenuProductos menuProductos;
-    private List<Product> products;
+    public static Vector<Product> products;
+    public static Vector<Category> categories;
+    public static Vector<Record> records;
+    public static Vector<Category> categoriesWithAll;
     private JButton jButton;
 
     public VPrincipal() {
@@ -59,7 +67,7 @@ public class VPrincipal extends JFrame {
         pintar(btnProducts, new ImageIcon(App.class.getResource("Icons/x32/inventarioSeleccionado.png")));
         splitPane.setRightComponent(null);
         splitPane.setRightComponent(menuProductos.getContentPane());
-        menuProductos.loadProducts();
+        menuProductos.loadRecords();
         contentPane.updateUI();
     }
 
@@ -91,7 +99,6 @@ public class VPrincipal extends JFrame {
         loadAll();
         añadirButtonOnJTabedpane();
         menuProductos = new MenuProductos(tabContenido);
-        cargarMenuInventario();
         pack();
         setLocationRelativeTo(null);
         loadCursors();
@@ -106,6 +113,7 @@ public class VPrincipal extends JFrame {
                 }
             }
         });
+        cargarMenuInventario();
     }
 
     private void añadirButtonOnJTabedpane() {
@@ -172,8 +180,16 @@ public class VPrincipal extends JFrame {
 
     private void loadAll() {
         products = Products.getTodos();
+        categories= Categorys.getTodos();
+        records= Records.getUltimos100();
+        loadWithAll();
     }
-
+    private void loadWithAll(){
+        categoriesWithAll=new Vector<>(categories);
+        Category category=new Category();
+        category.setName("TODAS");
+        categoriesWithAll.add(0,category);
+    }
     private void loadCursors() {
         btnGestionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnProducts.setCursor(new Cursor(Cursor.HAND_CURSOR));

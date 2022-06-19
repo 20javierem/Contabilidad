@@ -1,4 +1,4 @@
-package org.moreno.tablesModels;
+package org.moreno.utilitiesTables.tablesModels;
 import org.moreno.models.Product;
 
 import javax.swing.*;
@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ProductTableModel extends AbstractTableModel {
-    private String[] columnNames = {"ID","CATEGORÍA","PRODUCTO","STOCK ACTUAL","UNIDAD DE MEDIDA","ULTIMA INGRESO","ULTIMO PRECIO"};
-    private Class[] m_colTypes = {Integer.class,String.class,String.class,Integer.class,String.class,Date.class,Double.class};
+    private String[] columnNames = {"ID","CATEGORÍA","PRODUCTO","UNIDAD DE MEDIDA","STOCK ACTUAL","ÚLTIMO INGRESO","ÚLTIMO PRECIO"};
+    private Class[] m_colTypes = {Integer.class,String.class,String.class,String.class,Double.class,Date.class,Double.class};
     private List<Product> vector;
 
     public ProductTableModel(List<Product> vector){
@@ -44,9 +44,9 @@ public class ProductTableModel extends AbstractTableModel {
             case 2:
                 return product.getName();
             case 3:
-                return product.getStockActual();
-            case 4:
                 return product.getUnitMeasure();
+            case 4:
+                return product.getStockActual();
             case 5:
                 return product.getLastEntrance();
             default:
