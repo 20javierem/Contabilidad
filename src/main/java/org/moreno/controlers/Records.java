@@ -8,6 +8,7 @@ import org.moreno.models.Record;
 import org.moreno.utilities.Contabilidad;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 public class Records extends Contabilidad {
@@ -38,8 +39,9 @@ public class Records extends Contabilidad {
         root = criteria.from(Record.class);
         criteria.select(root).where(builder.and(builder.equal(root.get("product"), record.getProduct()),
                 builder.isTrue(root.get("entrance")),
-                builder.greaterThan(root.get("id"),record.getId())));
-        return session.createQuery(criteria).getSingleResultOrNull();
+                builder.isTrue(root.get("onHold")))).orderBy(builder.asc(root.get("date")));
+        List<Record> records=session.createQuery(criteria).getResultList();
+        return records.isEmpty()?null:records.get(0);
     }
     public static boolean isFirst(Product product){
         criteria = builder.createQuery(Record.class);

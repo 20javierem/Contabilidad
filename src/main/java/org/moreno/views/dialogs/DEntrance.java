@@ -135,13 +135,10 @@ public class DEntrance extends JDialog{
         record.setSubTotalAcount(record.getPrice()*record.getQuantity());
         record.setSubTotal(record.getQuantity()*record.getPrice());
         record.setEntrance(true);
-        if(record.getProduct()!=null){
-            record.setActive(Records.isFirst(record.getProduct()));
-        }else{
-            record.setActive(false);
-        }
         Set<ConstraintViolation<Record>> errors = RecordValidator.loadViolations(record);
         if (errors.isEmpty()) {
+            record.setOnHold(record.getProduct().getStockActual()>0.0);
+            record.setActive(record.getProduct().getStockActual()==0.0);
             if(record.getPrice()>0.00){
                 if(record.getId()==null){
                     record.getProduct().updateForEntrance(record);

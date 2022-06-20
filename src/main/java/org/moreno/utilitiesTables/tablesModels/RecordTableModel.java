@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public class RecordTableModel extends AbstractTableModel {
-    private String[] columnNames = {"ID","FECHA","PRODUCTO","TIPO/DOC","NUM/DOC","DESCRIPCIÓN","CANT","PRECIO","TOTAL","SALDO/CANT","SALDO/PRECIO","SALDO/TOTAL"};
-    private Class[] m_colTypes = {Integer.class,Date.class,String.class,String.class,String.class,String.class,Integer.class,Double.class,Double.class,Integer.class,Double.class,Double.class};
+    private String[] columnNames = {"ID","FECHA","TIPO","PRODUCTO","TIPO/DOC","NUM/DOC","DESCRIPCIÓN","CANT","PRECIO","TOTAL","SALDO/CANT","SALDO/PRECIO","SALDO/TOTAL"};
+    private Class[] m_colTypes = {Integer.class,Date.class,String.class,String.class,String.class,String.class,String.class,Integer.class,Double.class,Double.class,Integer.class,Double.class,Double.class};
     private List<Record> vector;
 
     public RecordTableModel(List<Record> vector){
@@ -43,22 +43,24 @@ public class RecordTableModel extends AbstractTableModel {
             case 1:
                 return record.getDate();
             case 2:
-                return record.getProduct().getName();
+                return record.isEntrance()?"ENTRADA":"SALIDA";
             case 3:
-                return getTipoDocumento(record);
+                return record.getProduct().getName();
             case 4:
-                return record.getNumberDocument();
+                return getTipoDocumento(record);
             case 5:
-                return record.getDescription();
+                return record.getNumberDocument();
             case 6:
-                return record.getQuantity();
+                return record.getDescription();
             case 7:
-                return record.getPrice();
+                return record.getQuantity();
             case 8:
-                return record.getSubTotal();
+                return record.getPrice();
             case 9:
-                return record.getQuantityAcount();
+                return record.getSubTotal();
             case 10:
+                return record.getQuantityAcount();
+            case 11:
                 return record.getQuantityAcount()==0.0?0.00:record.getPrice();
             default:
                 return record.getSubTotalAcount();
@@ -77,9 +79,9 @@ public class RecordTableModel extends AbstractTableModel {
     private String getTipoDocumento(Record record){
         switch (record.getTypeDocument()){
             case 0:
-                return "Boleta";
+                return "BOLETA";
             case 1:
-                return "Factura";
+                return "FACTURA";
             default:
                 return "";
         }

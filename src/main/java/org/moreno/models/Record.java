@@ -50,6 +50,9 @@ public class Record extends Contabilidad {
     @Column
     private boolean active;
 
+    @Column
+    private boolean onHold;
+
     public Integer getId() {
         return id;
     }
@@ -158,6 +161,14 @@ public class Record extends Contabilidad {
         this.active = active;
     }
 
+    public boolean isOnHold() {
+        return onHold;
+    }
+
+    public void setOnHold(boolean onHold) {
+        this.onHold = onHold;
+    }
+
     public boolean saveExit(){
         System.out.println("cantidad: "+getQuantity());
         System.out.println("stock actual: "+getProduct().getStockActual());
@@ -177,7 +188,7 @@ public class Record extends Contabilidad {
             do{
                 record=new Record();
                 if(getQuantity()>recordActive.getQuantityAcount()){
-                    record.setQuantity(recordActive.getQuantity());
+                    record.setQuantity(recordActive.getQuantityAcount());
                     record.setQuantityAcount(0.00);
                     record.setSubTotalAcount(0.00);
                     record.setPrice(recordActive.getPrice());
@@ -188,9 +199,10 @@ public class Record extends Contabilidad {
                     record.setQuantityAcount(recordActive.getQuantityAcount()-getQuantity());
                     record.setSubTotalAcount(record.getQuantityAcount()*recordActive.getPrice());
                     record.setPrice(recordActive.getPrice());
-                    record.setActive(true);
+                    record.setActive(record.getQuantityAcount()>0.0);
                     setQuantity(0.00);
                 }
+                record.setOnHold(false);
                 record.setDate(getDate());
                 record.setDescription(getDescription());
                 record.setProduct(getProduct());
@@ -201,6 +213,7 @@ public class Record extends Contabilidad {
                 record.save();
                 VPrincipal.records.add(0,record);
                 recordActive.setActive(false);
+                recordActive.setOnHold(false);
                 recordActive.save();
                 recordActive=Records.getSecondActive(recordActive);
             }while(getQuantity()>0.00);

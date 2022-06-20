@@ -2,6 +2,7 @@ package org.moreno.utilitiesTables.cellRendereds;
 
 import org.moreno.utilities.Utilities;
 import org.moreno.utilitiesTables.UtilitiesTables;
+import org.moreno.views.VPrincipal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -35,7 +36,9 @@ public class RecordCellRendered extends DefaultTableCellRenderer {
             table.getColumn(table.getColumnName(column)).setMaxWidth(30);
             table.getColumn(table.getColumnName(column)).setMinWidth(30);
             table.getColumn(table.getColumnName(column)).setPreferredWidth(30);
-            return UtilitiesTables.isButonSelected(isSelected,"x16/eliminar.png",table);
+            Component componente=UtilitiesTables.isButonSelected(isSelected,"x16/eliminar.png",table);
+            UtilitiesTables.pintarComponente(componente,VPrincipal.records.get(table.convertRowIndexToModel(row)).isEntrance(),isSelected);
+            return componente;
         }else{
             JTextField componente=buscarTexto(listaFiltros,value,column,this);
             switch(table.getColumnName(column)){
@@ -46,6 +49,7 @@ public class RecordCellRendered extends DefaultTableCellRenderer {
                     table.getColumn(table.getColumnName(column)).setPreferredWidth(40);
                     break;
                 case "FECHA":
+                case "TIPO":
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
                     table.getColumn(table.getColumnName(column)).setMaxWidth(100);
                     table.getColumn(table.getColumnName(column)).setMinWidth(100);
@@ -82,6 +86,7 @@ public class RecordCellRendered extends DefaultTableCellRenderer {
                 default:
                     break;
             }
+            UtilitiesTables.pintarComponente(componente,VPrincipal.records.get(table.convertRowIndexToModel(row)).isEntrance(),isSelected);
             return componente;
         }
     }
