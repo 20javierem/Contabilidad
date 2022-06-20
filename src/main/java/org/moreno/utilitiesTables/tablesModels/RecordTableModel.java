@@ -59,7 +59,7 @@ public class RecordTableModel extends AbstractTableModel {
             case 9:
                 return record.getQuantityAcount();
             case 10:
-                return record.getPrice();
+                return record.getQuantityAcount()==0.0?0.00:record.getPrice();
             default:
                 return record.getSubTotalAcount();
         }

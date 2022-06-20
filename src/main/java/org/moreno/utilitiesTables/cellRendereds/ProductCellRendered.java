@@ -52,7 +52,9 @@ public class ProductCellRendered extends DefaultTableCellRenderer {
                     table.getColumn(table.getColumnName(column)).setPreferredWidth(100);
                     break;
                 case "ÚLTIMO PRECIO":
-                    componente.setText(Utilities.moneda.format(value));
+                    if(value!=null){
+                        componente.setText(Utilities.moneda.format(value));
+                    }
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
                     table.getColumn(table.getColumnName(column)).setMaxWidth(100);
                     table.getColumn(table.getColumnName(column)).setMinWidth(100);

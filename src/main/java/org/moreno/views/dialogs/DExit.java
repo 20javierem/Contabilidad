@@ -2,13 +2,10 @@ package org.moreno.views.dialogs;
 
 import com.toedter.calendar.JDateChooser;
 import jakarta.validation.ConstraintViolation;
-import org.moreno.controlers.Products;
 import org.moreno.controlers.Records;
-import org.moreno.models.Category;
 import org.moreno.models.Product;
 import org.moreno.models.Record;
 import org.moreno.utilities.Utilities;
-import org.moreno.validators.ProductValidator;
 import org.moreno.validators.RecordValidator;
 import org.moreno.views.VPrincipal;
 
@@ -17,24 +14,24 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Set;
 
-public class DEntrance extends JDialog{
+public class DExit extends JDialog{
+
     private JPanel contentPane;
     private JButton btnHecho;
     private JDateChooser dateChosser;
+    private JTextField txtDescription;
     private JComboBox cbbProduct;
     private JSpinner spinnerQuantity;
-    private JSpinner spinnerPrice;
+    private JCheckBox ventaCheckBox;
+    private JPanel paneCompra;
     private JComboBox cbbTypeDocument;
     private JTextField txtNumberDocument;
-    private JCheckBox compraCheckBox;
-    private JTextField txtDescription;
     private JButton btnSave;
-    private JPanel paneCompra;
     private Record record;
 
-    public DEntrance(){
+    public DExit(){
         this(new Record());
-        compraCheckBox.addActionListener(new ActionListener() {
+        ventaCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 verifyType();
@@ -42,9 +39,9 @@ public class DEntrance extends JDialog{
         });
     }
     private void verifyType(){
-        paneCompra.setVisible(compraCheckBox.isSelected());
+        paneCompra.setVisible(ventaCheckBox.isSelected());
     }
-    public DEntrance(Record record){
+    public DExit(Record record){
         this.record=record;
         initComponents();
         btnSave.addActionListener(new ActionListener() {
@@ -59,7 +56,7 @@ public class DEntrance extends JDialog{
         loadProducts();
         getRootPane().setDefaultButton(btnSave);
         if(record.getId()!=null){
-            this.setTitle("Editar Entrada");
+            this.setTitle("Editar Salida");
             btnHecho.setText("Cancelar");
             btnSave.setText("Guardar");
             loadRecord();
@@ -83,7 +80,7 @@ public class DEntrance extends JDialog{
                 }
             });
         }else{
-            this.setTitle("Nueva Entrada");
+            this.setTitle("Nueva Salida");
             contentPane.registerKeyboardAction(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     onDispose();
@@ -114,7 +111,6 @@ public class DEntrance extends JDialog{
         txtNumberDocument.setText(record.getNumberDocument());
         dateChosser.setDate(record.getDate());
         spinnerQuantity.setValue(record.getQuantity());
-        spinnerPrice.setValue(record.getPrice());
     }
     private void onDispose(){
         dispose();
@@ -126,36 +122,22 @@ public class DEntrance extends JDialog{
     private void save(){
         record.setDate(dateChosser.getDate());
         record.setDescription(txtDescription.getText().trim());
-        record.setPrice((Double) spinnerPrice.getValue());
         record.setProduct((Product) cbbProduct.getSelectedItem());
         record.setQuantity((Double) spinnerQuantity.getValue());
         record.setTypeDocument(cbbTypeDocument.getSelectedIndex());
         record.setNumberDocument(txtNumberDocument.getText().trim());
-        record.setQuantityAcount((Double) spinnerQuantity.getValue());
-        record.setSubTotalAcount(record.getPrice()*record.getQuantity());
-        record.setSubTotal(record.getQuantity()*record.getPrice());
-        record.setEntrance(true);
-        if(record.getProduct()!=null){
-            record.setActive(Records.isFirst(record.getProduct()));
-        }else{
-            record.setActive(false);
-        }
+        record.setEntrance(false);
         Set<ConstraintViolation<Record>> errors = RecordValidator.loadViolations(record);
         if (errors.isEmpty()) {
-            if(record.getPrice()>0.00){
-                if(record.getId()==null){
-                    record.getProduct().updateForEntrance(record);
-                    record.save();
-                    VPrincipal.records.add(0,record);
+            if(record.getId()==null){
+                if(record.saveExit()){
                     limpiarControles();
-                    Utilities.sendNotification("ÉXITO","Entrada registrada", TrayIcon.MessageType.INFO);
-                }else{
-                    record.save();
-                    Utilities.sendNotification("ÉXITO","Cambios guardados", TrayIcon.MessageType.INFO);
-                    onDispose();
+                    Utilities.sendNotification("ÉXITO","Salida registrada", TrayIcon.MessageType.INFO);
                 }
             }else{
-                Utilities.sendNotification("Error", "Verfique el campo: Precio", TrayIcon.MessageType.ERROR);
+                record.save();
+                Utilities.sendNotification("ÉXITO","Cambios guardados", TrayIcon.MessageType.INFO);
+                onDispose();
             }
         } else {
             RecordValidator.mostrarErrores(errors);
@@ -169,14 +151,9 @@ public class DEntrance extends JDialog{
         cbbTypeDocument.setSelectedIndex(-1);
         dateChosser.setDate(null);
         spinnerQuantity.setValue(0.00);
-        spinnerPrice.setValue(0.00);
-        compraCheckBox.setSelected(false);
-        verifyType();
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        spinnerPrice = new JSpinner(new SpinnerNumberModel(0.00, 0.00, 100000.00, 0.50));
-        spinnerPrice.setEditor(new JSpinner.NumberEditor(spinnerPrice, "S/#,##0.###"));
         spinnerQuantity = new JSpinner(new SpinnerNumberModel(0.00, 0.00, 100000.00, 1.00));
         spinnerQuantity.setEditor(new JSpinner.NumberEditor(spinnerQuantity, "#,##0.###"));
         dateChosser=new JDateChooser();

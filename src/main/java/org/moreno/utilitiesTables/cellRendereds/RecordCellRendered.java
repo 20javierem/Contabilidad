@@ -63,9 +63,7 @@ public class RecordCellRendered extends DefaultTableCellRenderer {
                 case "PRECIO":
                 case "TOTAL":
                 case "SALDO/TOTAL":
-                    if(value!=null){
-                        componente.setText(Utilities.moneda.format(value));
-                    }
+                    componente.setText(Utilities.moneda.format(value));
                     componente.setHorizontalAlignment(SwingConstants.CENTER);
                     table.getColumn(table.getColumnName(column)).setMaxWidth(90);
                     table.getColumn(table.getColumnName(column)).setMinWidth(90);

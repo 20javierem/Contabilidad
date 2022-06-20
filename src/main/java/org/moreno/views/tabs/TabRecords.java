@@ -8,6 +8,7 @@ import org.moreno.utilitiesTables.cellRendereds.RecordCellRendered;
 import org.moreno.utilitiesTables.tablesModels.RecordTableModel;
 import org.moreno.views.VPrincipal;
 import org.moreno.views.dialogs.DEntrance;
+import org.moreno.views.dialogs.DExit;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,13 +36,18 @@ public class TabRecords {
         btnNewExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                loadNewExit();
             }
         });
     }
     private void loadNewEntrance(){
         DEntrance dEntrance=new DEntrance();
         dEntrance.setVisible(true);
+        UtilitiesTables.updateTable(table);
+    }
+    private void loadNewExit(){
+        DExit dExit=new DExit();
+        dExit.setVisible(true);
         UtilitiesTables.updateTable(table);
     }
     private void initComponents() {
