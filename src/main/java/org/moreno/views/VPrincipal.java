@@ -60,6 +60,12 @@ public class VPrincipal extends JFrame {
             }
         });
 
+        btnNuevoProducts.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuProductos.loadProducts();
+            }
+        });
     }
 
     private void cargarMenuInventario() {

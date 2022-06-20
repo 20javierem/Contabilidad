@@ -15,17 +15,17 @@ public class App
     public static void main( String[] args ) {
         Utilities.tema("genome");
         Contabilidad.initialize();
-        Category category=new Category();
-        category.setActive(true);
-        category.setName("CONSTRUCCIÓN");
-        category.save();
-        Product product=new Product();
-        product.setName("CEMENTO SOL");
-        product.setStockActual(0.0);
-        product.setActive(true);
-        product.setCategory(category);
-        product.setUnitMeasure("BOLSAS");
-        product.save();
+//        Category category=new Category();
+//        category.setActive(true);
+//        category.setName("CONSTRUCCIÓN");
+//        category.save();
+//        Product product=new Product();
+//        product.setName("CEMENTO SOL");
+//        product.setStockActual(0.0);
+//        product.setActive(true);
+//        product.setCategory(category);
+//        product.setUnitMeasure("BOLSAS");
+//        product.save();
         VPrincipal vPrincipal=new VPrincipal();
         vPrincipal.setVisible(true);
     }
