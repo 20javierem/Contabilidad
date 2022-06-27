@@ -1,6 +1,7 @@
 package org.moreno.views.tabs;
 
 import org.moreno.App;
+import org.moreno.components.DnDTabbedPane;
 import org.moreno.components.TabPane;
 import org.moreno.models.Category;
 import org.moreno.models.Product;
@@ -36,8 +37,10 @@ public class TabProducts {
     private TableRowSorter<ProductTableModel> modeloOrdenado;
     private List<RowFilter<ProductTableModel, String>> filtros = new ArrayList<>();
     private RowFilter filtroand;
+    private DnDTabbedPane dnDTabbedPane;
 
-    public TabProducts() {
+    public TabProducts(DnDTabbedPane dnDTabbedPane) {
+        this.dnDTabbedPane=dnDTabbedPane;
         initComponents();
         btnNewProduct.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +81,6 @@ public class TabProducts {
             @Override
             public void run() {
                 cargarMostrarBuscador();
-                splitPane.setDividerLocation(103);
             }
         });
         loadProducts();
@@ -91,13 +93,21 @@ public class TabProducts {
     private void insertarMenuPopUp(){
         JPopupMenu pop_up = new JPopupMenu();
         JMenuItem editarProducto = new JMenuItem("Editar Producto", new ImageIcon(App.class.getResource("Icons/x16/editar.png")));
+        JMenuItem verCardex = new JMenuItem("Ver Cardex", new ImageIcon(App.class.getResource("Icons/x16/mostrarContraseña.png")));
         editarProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cargarEditarProducto();
             }
         });
+        verCardex.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadCardexofProduct();
+            }
+        });
         pop_up.add(editarProducto);
+        pop_up.add(verCardex);
         table.addMouseListener( new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 if (e.isPopupTrigger()) {
@@ -113,6 +123,16 @@ public class TabProducts {
             Product product= model.get(table.convertRowIndexToModel(table.getSelectedRow()));
             DProduct dNuevoProducto=new DProduct(product);
             dNuevoProducto.setVisible(true);
+        }
+    }
+    private void loadCardexofProduct(){
+        if(table.getSelectedRow()!=-1){
+            Product product= model.get(table.convertRowIndexToModel(table.getSelectedRow()));
+            TabCardexProduct cardexProduct=new TabCardexProduct(product);
+            if(dnDTabbedPane.indexOfComponent(cardexProduct.getContentPane())==-1){
+                dnDTabbedPane.addTab(cardexProduct.getContentPane().getTitle(), cardexProduct.getContentPane().getIcon(), cardexProduct.getContentPane());
+            }
+            dnDTabbedPane.setSelectedComponent(cardexProduct.getContentPane());
         }
     }
     private void loadProducts(){

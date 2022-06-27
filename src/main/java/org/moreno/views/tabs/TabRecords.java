@@ -53,12 +53,6 @@ public class TabRecords {
     private void initComponents() {
         contentPane.setTitle("Registros");
         loadTable();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                splitPane.setDividerLocation(100);
-            }
-        });
     }
     private void loadTable(){
         model=new RecordTableModel(VPrincipal.records);

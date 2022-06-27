@@ -1,8 +1,5 @@
 package org.moreno.views;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import org.moreno.App;
 import org.moreno.components.DnDTabbedPane;
 import org.moreno.components.TabPane;
@@ -18,15 +15,11 @@ import org.moreno.views.menus.MenuProductos;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
 
-public class VPrincipal extends JFrame {
+public class VPrincipal extends JFrame{
     private JPanel contentPane;
     private JButton btnNuevoProducts;
     private JSplitPane splitPane;
@@ -105,7 +98,6 @@ public class VPrincipal extends JFrame {
         loadAll();
         añadirButtonOnJTabedpane();
         menuProductos = new MenuProductos(tabContenido);
-        pack();
         setLocationRelativeTo(null);
         loadCursors();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -120,14 +112,21 @@ public class VPrincipal extends JFrame {
             }
         });
         cargarMenuInventario();
+        pack();
+        setLocationRelativeTo(null);
     }
 
     private void añadirButtonOnJTabedpane() {
         tabContenido.setAlignmentX(1.0f);
         tabContenido.setAlignmentY(0.0f);
         panelDeTabPane.setLayout(new OverlayLayout(panelDeTabPane));
+        JPanel panelDeButon=new JPanel();
+        panelDeButon.setLayout(new OverlayLayout(panelDeButon));
+        panelDeButon.setMaximumSize(new Dimension(150,32));
         jButton = new JButton();
-        jButton.setMargin(new Insets(6, 3, 6, 3));
+        jButton.setMargin(new Insets(4, 3, 6, 3));
+        panelDeButon.setAlignmentX(1.0f);
+        panelDeButon.setAlignmentY(0.0f);
         jButton.setAlignmentX(1.0f);
         jButton.setAlignmentY(0.0f);
         jButton.setFocusPainted(false);
@@ -143,7 +142,8 @@ public class VPrincipal extends JFrame {
                 Utilities.buttonExited(jButton);
             }
         });
-        panelDeTabPane.add(jButton);
+        panelDeButon.add(jButton);
+        panelDeTabPane.add(panelDeButon);
         panelDeTabPane.add(tabContenido);
         JPopupMenu pop_up = new JPopupMenu();
         JMenuItem cerrarPestaña = new JMenuItem("Cerrar Pestaña");
@@ -180,7 +180,7 @@ public class VPrincipal extends JFrame {
     }
 
     private boolean salir() {
-        int sioNo = JOptionPane.showOptionDialog(null, "¿Está seguro?", "Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "Si");
+        int sioNo = JOptionPane.showOptionDialog(tabContenido.getRootPane(), "¿Está seguro?", "Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "Si");
         return sioNo == 0;
     }
 

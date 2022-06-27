@@ -65,24 +65,34 @@ public class DnDTabbedPane extends JTabbedPane {
         }
     }
 
-    private void despintar(){
-        for (Component component : getComponents()) {
-            if(indexOfComponent(component)!=-1){
-                ((TabPane) component).getOption().setBackground(new JButton().getBackground());
-                ((TabPane) component).getOption().setForeground(new JButton().getForeground());
-            }
-        }
-    }
+
     public void verificarSelected(){
         despintar();
         pintarSeleccionado();
     }
+    private void despintar(){
+        for (Component component : getComponents()) {
+            if(indexOfComponent(component)!=-1){
+                if(component instanceof TabPane){
+                    TabPane tabPane=(TabPane) component;
+                    if(tabPane.getOption()!=null){
+                        tabPane.getOption().setBackground(new JButton().getBackground());
+                        tabPane.getOption().setForeground(new JButton().getForeground());
+                    }
+                }
+            }
+        }
+    }
     public void pintarSeleccionado(){
         if(getSelectedIndex()!=-1){
-            TabPane tabPanel=(TabPane) getComponentAt(getSelectedIndex());
-            Utilities.buttonSelectedOrEntered2(tabPanel.getOption());
-            tabPanel.getOption().setForeground(Color.white);
-            tabPanel.update();
+            if(getComponentAt(getSelectedIndex()) instanceof TabPane){
+                TabPane tabPanel=(TabPane) getComponentAt(getSelectedIndex());
+                if(tabPanel.getOption()!=null){
+                    Utilities.buttonSelectedOrEntered2(tabPanel.getOption());
+                    tabPanel.getOption().setForeground(Color.white);
+                }
+                tabPanel.update();
+            }
         }
 
     }

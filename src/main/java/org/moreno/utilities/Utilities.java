@@ -2,6 +2,7 @@ package org.moreno.utilities;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.toedter.calendar.JDateChooser;
 import org.moreno.App;
 
 import javax.crypto.Cipher;
@@ -62,7 +63,19 @@ public class Utilities {
         }
 
     }
-
+    public static Date getDate(Date date,boolean inicio){
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR,00);
+        calendar.set(Calendar.MINUTE,00);
+        calendar.set(Calendar.SECOND,00);
+        if(inicio){
+            calendar.add(Calendar.SECOND,-1);
+        }else{
+            calendar.add(Calendar.DATE,1);
+        }
+        return calendar.getTime();
+    }
     public static boolean precioEsValido(KeyEvent e, String precio){
         int caracter = e.getKeyChar();
         if(caracter==46){

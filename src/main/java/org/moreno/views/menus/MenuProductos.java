@@ -54,10 +54,10 @@ public class MenuProductos {
         Utilities.buttonSelectedOrEntered2(btnProducts);
         btnProducts.setForeground(Color.white);
         if (tabProducts == null) {
-            tabProducts = new TabProducts();
+            tabProducts = new TabProducts(tabContenido);
         }
         if (tabContenido.indexOfComponent(tabProducts.getContentPane()) == -1) {
-            tabProducts = new TabProducts();
+            tabProducts = new TabProducts(tabContenido);
             tabProducts.getContentPane().setOption(btnProducts);
             tabContenido.addTab(tabProducts.getContentPane().getTitle(), tabProducts.getContentPane().getIcon(), tabProducts.getContentPane());
 

@@ -6,7 +6,9 @@ import jakarta.persistence.criteria.Root;
 import org.moreno.models.Product;
 import org.moreno.models.Record;
 import org.moreno.utilities.Contabilidad;
+import org.moreno.utilities.Utilities;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -33,13 +35,26 @@ public class Records extends Contabilidad {
                 builder.isTrue(root.get("active"))));
         return session.createQuery(criteria).uniqueResult();
     }
-
+    public static List<Record> recordsOfProductByStartAndEnd(Product product,Date start,Date end){
+        start= Utilities.getDate(start,true);
+        end= Utilities.getDate(end,false);
+        criteria = builder.createQuery(Record.class);
+        root = criteria.from(Record.class);
+        criteria.select(root).where(builder.and(
+                builder.equal(root.get("product"), product)),
+                builder.between(root.get("date"),start,end))
+                .orderBy(builder.asc(root.get("date")));
+        List<Record> records=session.createQuery(criteria).getResultList();
+        return records;
+    }
     public static Record getSecondActive(Record record){
         criteria = builder.createQuery(Record.class);
         root = criteria.from(Record.class);
-        criteria.select(root).where(builder.and(builder.equal(root.get("product"), record.getProduct()),
+        criteria.select(root).where(builder.and(
+                builder.equal(root.get("product"),record.getProduct()),
                 builder.isTrue(root.get("entrance")),
-                builder.isTrue(root.get("onHold")))).orderBy(builder.asc(root.get("date")));
+                builder.isTrue(root.get("onHold"))))
+                .orderBy(builder.asc(root.get("date")));
         List<Record> records=session.createQuery(criteria).getResultList();
         return records.isEmpty()?null:records.get(0);
     }

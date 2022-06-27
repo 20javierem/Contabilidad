@@ -51,10 +51,7 @@ public class DProduct extends JDialog{
     private void onDispose(){
         dispose();
     }
-    private void loadPlaceHolders(){
-        PlaceHolder.placeHolder(txtUnitMeasure,"Unidad de medida");
-        PlaceHolder.placeHolder(txtName,"Nombre de producto");
-    }
+
     private void limpiarControles(){
         product=new Product();
         txtName.setText(null);
@@ -72,7 +69,6 @@ public class DProduct extends JDialog{
     }
     private void initComponents(){
         setContentPane(contentPane);
-        loadPlaceHolders();
         loadCombos();
         getRootPane().setDefaultButton(btnSave);
         if(product.getId()!=null){
@@ -115,7 +111,7 @@ public class DProduct extends JDialog{
         }
         pack();
         setResizable(false);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(getRootPane());
         setModal(true);
     }
     private void loadProduct(){
