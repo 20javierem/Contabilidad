@@ -65,7 +65,6 @@ public class DnDTabbedPane extends JTabbedPane {
         }
     }
 
-
     public void verificarSelected(){
         despintar();
         pintarSeleccionado();
@@ -94,7 +93,6 @@ public class DnDTabbedPane extends JTabbedPane {
                 tabPanel.update();
             }
         }
-
     }
     public void setBotonEsquina(JButton botonEsquina){
         this.botonEsquina=botonEsquina;
