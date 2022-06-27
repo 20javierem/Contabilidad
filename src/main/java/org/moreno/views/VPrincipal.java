@@ -121,10 +121,11 @@ public class VPrincipal extends JFrame{
         tabContenido.setAlignmentY(0.0f);
         panelDeTabPane.setLayout(new OverlayLayout(panelDeTabPane));
         JPanel panelDeButon=new JPanel();
+        panelDeButon.setBackground(Color.RED);
         panelDeButon.setLayout(new OverlayLayout(panelDeButon));
-        panelDeButon.setMaximumSize(new Dimension(150,32));
+        panelDeButon.setMaximumSize(new Dimension(25,32));
         jButton = new JButton();
-        jButton.setMargin(new Insets(4, 3, 6, 3));
+        jButton.setMargin(new Insets(4, 1, 6, 1));
         panelDeButon.setAlignmentX(1.0f);
         panelDeButon.setAlignmentY(0.0f);
         jButton.setAlignmentX(1.0f);

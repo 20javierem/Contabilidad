@@ -43,6 +43,7 @@ public class DEntrance extends JDialog{
     }
     private void verifyType(){
         paneCompra.setVisible(compraCheckBox.isSelected());
+        pack();
     }
     public DEntrance(Record record){
         this.record=record;
@@ -100,7 +101,6 @@ public class DEntrance extends JDialog{
         setResizable(false);
         setLocationRelativeTo(null);
         setModal(true);
-        paneCompra.setVisible(false);
     }
     private void loadProducts(){
         cbbProduct.setModel(new DefaultComboBoxModel(VPrincipal.products));

@@ -40,6 +40,7 @@ public class DExit extends JDialog{
     }
     private void verifyType(){
         paneCompra.setVisible(ventaCheckBox.isSelected());
+        pack();
     }
     public DExit(Record record){
         this.record=record;
@@ -97,7 +98,6 @@ public class DExit extends JDialog{
         setResizable(false);
         setLocationRelativeTo(null);
         setModal(true);
-        paneCompra.setVisible(false);
     }
     private void loadProducts(){
         cbbProduct.setModel(new DefaultComboBoxModel(VPrincipal.products));

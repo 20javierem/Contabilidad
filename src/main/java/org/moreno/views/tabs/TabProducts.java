@@ -129,10 +129,11 @@ public class TabProducts {
         if(table.getSelectedRow()!=-1){
             Product product= model.get(table.convertRowIndexToModel(table.getSelectedRow()));
             TabCardexProduct cardexProduct=new TabCardexProduct(product);
-            if(dnDTabbedPane.indexOfComponent(cardexProduct.getContentPane())==-1){
+            if(dnDTabbedPane.indexOfTab(cardexProduct.getContentPane().getTitle())==-1){
                 dnDTabbedPane.addTab(cardexProduct.getContentPane().getTitle(), cardexProduct.getContentPane().getIcon(), cardexProduct.getContentPane());
             }
-            dnDTabbedPane.setSelectedComponent(cardexProduct.getContentPane());
+            dnDTabbedPane.setSelectedIndex(dnDTabbedPane.indexOfTab(cardexProduct.getContentPane().getTitle()));
+
         }
     }
     private void loadProducts(){
