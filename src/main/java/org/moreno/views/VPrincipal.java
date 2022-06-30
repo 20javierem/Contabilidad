@@ -120,17 +120,16 @@ public class VPrincipal extends JFrame{
         tabContenido.setAlignmentX(1.0f);
         tabContenido.setAlignmentY(0.0f);
         panelDeTabPane.setLayout(new OverlayLayout(panelDeTabPane));
-        JPanel panelDeButon=new JPanel();
-        panelDeButon.setBackground(Color.RED);
+        JToolBar panelDeButon=new JToolBar();
         panelDeButon.setLayout(new OverlayLayout(panelDeButon));
         panelDeButon.setMaximumSize(new Dimension(25,32));
         jButton = new JButton();
         jButton.setMargin(new Insets(4, 1, 6, 1));
         panelDeButon.setAlignmentX(1.0f);
         panelDeButon.setAlignmentY(0.0f);
-        jButton.setAlignmentX(1.0f);
-        jButton.setAlignmentY(0.0f);
-        jButton.setFocusPainted(false);
+//        jButton.setAlignmentX(1.0f);
+//        jButton.setAlignmentY(0.0f);
+//        jButton.setFocusPainted(false);
         jButton.setIcon(new ImageIcon(App.class.getResource("Icons/x16/menu1.png")));
         jButton.addMouseListener(new MouseAdapter() {
             @Override

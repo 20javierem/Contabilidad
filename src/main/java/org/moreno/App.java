@@ -27,8 +27,6 @@ public class App
 //        product.setCategory(Categorys.get(1));
 //        product.setUnitMeasure("BOLSAS");
 //        product.save();
-
-
         VPrincipal vPrincipal=new VPrincipal();
         vPrincipal.setVisible(true);
     }
