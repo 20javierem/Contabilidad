@@ -52,17 +52,8 @@ public class DnDTabbedPane extends JTabbedPane {
 
     @Override
     public void addTab(String title, Icon icon,Component component) {
-        super.addTab(title, icon,component);
+        super.addTab(title, icon,component,title);
         setTabComponentAt(indexOfTab(title), new Cross(this, title,icon));
-        verificarBoton(true);
-        setSelectedComponent(getComponentAt(indexOfTab(title)));
-        despintar();
-        pintarSeleccionado();
-    }
-    @Override
-    public void addTab(String title,Component component) {
-        super.addTab(title, component);
-        setTabComponentAt(indexOfTab(title), new Cross(this, title));
         verificarBoton(true);
         setSelectedComponent(getComponentAt(indexOfTab(title)));
         despintar();
@@ -540,7 +531,7 @@ public class DnDTabbedPane extends JTabbedPane {
         if (this != source) {
             source.remove(sourceIndex);
             if (a_targetIndex == getTabCount()) {
-                addTab(str, cmp);
+                addTab(str,icon, cmp);
             } else {
                 if (a_targetIndex < 0) {
                     a_targetIndex = 0;
@@ -732,6 +723,7 @@ class Cross extends JPanel {
         gbc.gridx++;
         gbc.weightx = 0;
         add(B, gbc);
+        setBackground(Color.blue);
     }
 
     private ImageIcon getImage(String icono) {
