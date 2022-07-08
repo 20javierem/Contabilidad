@@ -686,7 +686,7 @@ class Cross extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
-        L = new JLabel(title+"  ");
+        L = new JLabel(title+" ");
         L.setIcon(icon);
         L.setIconTextGap(5);
         Dimension d = new Dimension(22, 22);
@@ -697,7 +697,7 @@ class Cross extends JPanel {
         ImageIcon iconoNormal = getImage("cerrar.png");
         ImageIcon iconoSegundo = getImage("cerrar2.png");
         ImageIcon iconoTercero = getImage("cerrar3.png");
-        B.setToolTipText("Cerrar Pestaña" + title);
+        B.setToolTipText("Cerrar Pestaña " + title);
         B.setIcon(iconoNormal);
         //Listener para cierre de tabs con acceso estatico al `JTabbedPane`
         B.addMouseListener(new MouseAdapter() {
