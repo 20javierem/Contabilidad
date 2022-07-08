@@ -2,7 +2,7 @@ package org.moreno.views.tabs;
 
 import org.moreno.App;
 import org.moreno.components.DnDTabbedPane;
-import org.moreno.components.TabPane;
+import org.moreno.components.TabPanel;
 import org.moreno.models.Category;
 import org.moreno.models.Product;
 import org.moreno.utilitiesTables.UtilitiesTables;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TabProducts {
-    private TabPane contentPane;
+    private TabPanel contentPane;
     private JTable table;
     private JButton btnNewProduct;
     private JButton btnClearFilters;
@@ -202,7 +202,7 @@ public class TabProducts {
         mostrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         mostrar.setFocusable(false);
     }
-    public TabPane getContentPane() {
+    public TabPanel getContentPane() {
         return contentPane;
     }
 

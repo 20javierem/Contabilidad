@@ -1,8 +1,7 @@
 package org.moreno.views.tabs;
 
 import com.toedter.calendar.JDateChooser;
-import org.moreno.components.TabPane;
-import org.moreno.utilities.Utilities;
+import org.moreno.components.TabPanel;
 import org.moreno.utilitiesTables.UtilitiesTables;
 import org.moreno.utilitiesTables.cellRendereds.RecordCellRendered;
 import org.moreno.utilitiesTables.tablesModels.RecordTableModel;
@@ -16,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 public class TabRecords {
-    private TabPane contentPane;
+    private TabPanel contentPane;
     private JDateChooser dateStart;
     private JDateChooser dateEnd;
     private JTable table;
@@ -59,7 +58,7 @@ public class TabRecords {
         table.setModel(model);
         RecordCellRendered.setCellRenderer(table);
     }
-    public TabPane getContentPane() {
+    public TabPanel getContentPane() {
         return contentPane;
     }
 

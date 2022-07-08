@@ -2,7 +2,7 @@ package org.moreno.views;
 
 import org.moreno.App;
 import org.moreno.components.DnDTabbedPane;
-import org.moreno.components.TabPane;
+import org.moreno.components.TabPanel;
 import org.moreno.controlers.Categorys;
 import org.moreno.controlers.Products;
 import org.moreno.controlers.Records;
@@ -156,7 +156,7 @@ public class VPrincipal extends JFrame{
         });
         cerrarOtras.addActionListener(e -> {
             if (tabContenido.getSelectedIndex() != -1) {
-                TabPane tab = (TabPane) tabContenido.getComponentAt(tabContenido.getSelectedIndex());
+                TabPanel tab = (TabPanel) tabContenido.getComponentAt(tabContenido.getSelectedIndex());
                 tabContenido.removeAll();
                 tabContenido.addTab(tab.getTitle(), tab.getIcon(), tab);
             }

@@ -58,6 +58,15 @@ public class DnDTabbedPane extends JTabbedPane {
         despintar();
         pintarSeleccionado();
     }
+    @Override
+    public void addTab(String title,Component component) {
+        super.addTab(title, component);
+        setTabComponentAt(indexOfTab(title), new Cross(this, title));
+        verificarBoton(true);
+        setSelectedComponent(getComponentAt(indexOfTab(title)));
+        despintar();
+        pintarSeleccionado();
+    }
 
     private void verificarBoton(boolean estado){
         if(botonEsquina!=null){
@@ -65,15 +74,11 @@ public class DnDTabbedPane extends JTabbedPane {
         }
     }
 
-    public void verificarSelected(){
-        despintar();
-        pintarSeleccionado();
-    }
     private void despintar(){
         for (Component component : getComponents()) {
             if(indexOfComponent(component)!=-1){
-                if(component instanceof TabPane){
-                    TabPane tabPane=(TabPane) component;
+                if(component instanceof TabPanel){
+                    TabPanel tabPane=(TabPanel) component;
                     if(tabPane.getOption()!=null){
                         tabPane.getOption().setBackground(new JButton().getBackground());
                         tabPane.getOption().setForeground(new JButton().getForeground());
@@ -82,10 +87,15 @@ public class DnDTabbedPane extends JTabbedPane {
             }
         }
     }
+    public void verificarSelected(){
+        despintar();
+        pintarSeleccionado();
+    }
+
     public void pintarSeleccionado(){
         if(getSelectedIndex()!=-1){
-            if(getComponentAt(getSelectedIndex()) instanceof TabPane){
-                TabPane tabPanel=(TabPane) getComponentAt(getSelectedIndex());
+            if(getComponentAt(getSelectedIndex()) instanceof TabPanel){
+                TabPanel tabPanel=(TabPanel) getComponentAt(getSelectedIndex());
                 if(tabPanel.getOption()!=null){
                     Utilities.buttonSelectedOrEntered2(tabPanel.getOption());
                     tabPanel.getOption().setForeground(Color.white);
@@ -122,7 +132,7 @@ public class DnDTabbedPane extends JTabbedPane {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(getSelectedIndex()!=-1){
-                    TabPane tab= (TabPane) getComponentAt(getSelectedIndex());
+                    TabPanel tab= (TabPanel) getComponentAt(getSelectedIndex());
                     removeAll();
                     addTab(tab.getTitle(),tab.getIcon(),tab);
                 }
@@ -568,8 +578,7 @@ public class DnDTabbedPane extends JTabbedPane {
             m_lineRect.setRect(0, 0, 0, 0);
             m_isDrawRect = false;
             return;
-        } // if
-
+        }
         if ((a_data.getTabbedPane() == this)
                 && (a_data.getTabIndex() == next
                 || next - a_data.getTabIndex() == 1)) {
@@ -601,7 +610,7 @@ public class DnDTabbedPane extends JTabbedPane {
             m_lineRect.setRect(0, 0, 0, 0);
             m_isDrawRect = false;
             return;
-        } // if
+        }
 
         if ((a_data.getTabbedPane() == this)
                 && (a_data.getTabIndex() == next
@@ -630,7 +639,6 @@ public class DnDTabbedPane extends JTabbedPane {
     }
 
     private void initGlassPane(Component c, Point tabPt, int a_tabIndex) {
-        //Point p = (Point) pt.clone();
         getRootPane().setGlassPane(s_glassPane);
         if (hasGhost()) {
             Rectangle rect = getBoundsAt(a_tabIndex);
@@ -653,7 +661,6 @@ public class DnDTabbedPane extends JTabbedPane {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         if (m_isDrawRect) {
             Graphics2D g2 = (Graphics2D) g;
             g2.setPaint(m_lineColor);
@@ -669,7 +676,9 @@ class Cross extends JPanel {
     private JLabel L;
     private JLabel B;
     private int size = 22;
-
+    public Cross(final JTabbedPane jTabbedPane,String title){
+        this(jTabbedPane,title,null);
+    }
     public Cross(final JTabbedPane jTabbedPane, String title,Icon icon) {
         setOpaque(false);
         setLayout(new GridBagLayout());
@@ -677,7 +686,7 @@ class Cross extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
-        L = new JLabel(title + " ");
+        L = new JLabel(title+"  ");
         L.setIcon(icon);
         L.setIconTextGap(5);
         Dimension d = new Dimension(22, 22);
@@ -688,7 +697,7 @@ class Cross extends JPanel {
         ImageIcon iconoNormal = getImage("cerrar.png");
         ImageIcon iconoSegundo = getImage("cerrar2.png");
         ImageIcon iconoTercero = getImage("cerrar3.png");
-        B.setToolTipText("Cerrar Pestaña " + title);
+        B.setToolTipText("Cerrar Pestaña" + title);
         B.setIcon(iconoNormal);
         //Listener para cierre de tabs con acceso estatico al `JTabbedPane`
         B.addMouseListener(new MouseAdapter() {
@@ -735,6 +744,7 @@ class Cross extends JPanel {
         return new ImageIcon(IMG);
     }
 }
+
 class GhostGlassPane extends JPanel {
     public static final long serialVersionUID = 1L;
     private final AlphaComposite m_composite;
@@ -777,10 +787,8 @@ class GhostGlassPane extends JPanel {
         if (m_draggingGhost == null) {
             return;
         } // if
-
         Graphics2D g2 = (Graphics2D) g;
         g2.setComposite(m_composite);
-
         g2.drawImage(m_draggingGhost, (int) m_location.getX(), (int) m_location.getY(), null);
     }
 

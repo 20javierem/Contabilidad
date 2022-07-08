@@ -56,13 +56,13 @@ public class MenuProductos {
         if (tabProducts == null) {
             tabProducts = new TabProducts(tabContenido);
         }
-        if (tabContenido.indexOfComponent(tabProducts.getContentPane()) == -1) {
+        if (tabContenido.indexOfTab(tabProducts.getContentPane().getTitle()) == -1) {
             tabProducts = new TabProducts(tabContenido);
             tabProducts.getContentPane().setOption(btnProducts);
             tabContenido.addTab(tabProducts.getContentPane().getTitle(), tabProducts.getContentPane().getIcon(), tabProducts.getContentPane());
 
         }
-        tabContenido.setSelectedComponent(tabProducts.getContentPane());
+        tabContenido.setSelectedIndex(tabContenido.indexOfTab(tabProducts.getContentPane().getTitle()));
     }
     public void loadRecords() {
         btnEntradasCanceladas.setBackground(new JButton().getBackground());
@@ -74,13 +74,13 @@ public class MenuProductos {
         if (tabRecords == null) {
             tabRecords = new TabRecords();
         }
-        if (tabContenido.indexOfComponent(tabRecords.getContentPane()) == -1) {
+        if (tabContenido.indexOfTab(tabRecords.getContentPane().getTitle()) == -1) {
             tabRecords = new TabRecords();
             tabRecords.getContentPane().setOption(btnCardex);
             tabContenido.addTab(tabRecords.getContentPane().getTitle(), tabRecords.getContentPane().getIcon(), tabRecords.getContentPane());
 
         }
-        tabContenido.setSelectedComponent(tabRecords.getContentPane());
+        tabContenido.setSelectedIndex(tabContenido.indexOfTab(tabRecords.getContentPane().getTitle()));
     }
     public JPanel getContentPane() {
         return contentPane;
