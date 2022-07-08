@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.function.BiConsumer;
 
 public class DnDTabbedPane extends JTabbedPane {
 
@@ -110,7 +111,6 @@ public class DnDTabbedPane extends JTabbedPane {
 
     public DnDTabbedPane() {
         super();
-        putClientProperty("JTabbedPane.tabClosable", true);
         getModel().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
