@@ -110,6 +110,7 @@ public class DnDTabbedPane extends JTabbedPane {
 
     public DnDTabbedPane() {
         super();
+        putClientProperty("JTabbedPane.tabClosable", true);
         getModel().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
