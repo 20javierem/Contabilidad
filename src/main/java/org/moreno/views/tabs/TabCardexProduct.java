@@ -21,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TabCardexProduct {
     private TabPane contentPane;
@@ -107,13 +108,15 @@ public class TabCardexProduct {
     }
     public void filtrar() {
         filtros.clear();
-        String busqueda = txtSearch.getText().trim().toUpperCase();
-        filtros.add(RowFilter.regexFilter(busqueda,0,1,2,3));
+        String busqueda = txtSearch.getText().trim();
+        filtros.add(RowFilter.regexFilter(("(?i)"+ busqueda),2,3,4,5,6));
         listaFiltros.put(2, busqueda);
         listaFiltros.put(3, busqueda);
+        listaFiltros.put(4, busqueda);
+        listaFiltros.put(5, busqueda);
         listaFiltros.put(6, busqueda);
         if(cbbType.getSelectedIndex()!=0){
-            filtros.add(RowFilter.regexFilter(String.valueOf(cbbType.getSelectedItem()),1));
+            filtros.add(RowFilter.regexFilter(String.valueOf(cbbType.getSelectedItem()),2));
         }
         filtroand = RowFilter.andFilter(filtros);
         modeloOrdenado.setRowFilter(filtroand);

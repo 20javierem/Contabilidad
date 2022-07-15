@@ -156,8 +156,8 @@ public class TabProducts {
     }
     public void filtrar() {
         filtros.clear();
-        String busqueda = txtSearch.getText().trim().toUpperCase();
-        filtros.add(RowFilter.regexFilter(busqueda,0,1,2,3));
+        String busqueda = txtSearch.getText().trim();
+        filtros.add(RowFilter.regexFilter("(?i)"+ busqueda,0,1,2,3));
         listaFiltros.put(0, busqueda);
         listaFiltros.put(1, busqueda);
         listaFiltros.put(2, busqueda);

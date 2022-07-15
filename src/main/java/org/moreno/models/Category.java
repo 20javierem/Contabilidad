@@ -55,6 +55,8 @@ public class Category extends Contabilidad {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof Category) {
                 value = ((Category) value).getName();
+            }else{
+                value="Seleccione";
             }
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             return this;
