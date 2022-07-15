@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Record extends Contabilidad {
     @Id
-    @GeneratedValue(generator = "increment")
+//    @GeneratedValue(generator = "increment")
     private Integer id;
     @Column
     @NotNull(message = "Fecha")

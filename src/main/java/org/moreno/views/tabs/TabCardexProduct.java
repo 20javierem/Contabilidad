@@ -2,7 +2,7 @@ package org.moreno.views.tabs;
 
 import com.toedter.calendar.JDateChooser;
 import org.moreno.App;
-import org.moreno.components.TabPanel;
+import org.moreno.components.TabPane;
 import org.moreno.controlers.Records;
 import org.moreno.models.Product;
 import org.moreno.models.Record;
@@ -23,7 +23,7 @@ import java.util.*;
 import java.util.List;
 
 public class TabCardexProduct {
-    private TabPanel contentPane;
+    private TabPane contentPane;
     private JButton btnSearchRecords;
     private JDateChooser dateStart;
     private JDateChooser dateEnd;
@@ -151,7 +151,7 @@ public class TabCardexProduct {
         mostrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         mostrar.setFocusable(false);
     }
-    public TabPanel getContentPane() {
+    public TabPane getContentPane() {
         return contentPane;
     }
 

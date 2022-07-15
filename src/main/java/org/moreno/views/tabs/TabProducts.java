@@ -1,8 +1,8 @@
 package org.moreno.views.tabs;
 
 import org.moreno.App;
-import org.moreno.components.DnDTabbedPane;
-import org.moreno.components.TabPanel;
+import org.moreno.components.TabPane;
+import org.moreno.components.TabbedPane;
 import org.moreno.models.Category;
 import org.moreno.models.Product;
 import org.moreno.utilitiesTables.UtilitiesTables;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TabProducts {
-    private TabPanel contentPane;
+    private TabPane contentPane;
     private JTable table;
     private JButton btnNewProduct;
     private JButton btnClearFilters;
@@ -37,9 +37,9 @@ public class TabProducts {
     private TableRowSorter<ProductTableModel> modeloOrdenado;
     private List<RowFilter<ProductTableModel, String>> filtros = new ArrayList<>();
     private RowFilter filtroand;
-    private DnDTabbedPane dnDTabbedPane;
+    private TabbedPane dnDTabbedPane;
 
-    public TabProducts(DnDTabbedPane dnDTabbedPane) {
+    public TabProducts(TabbedPane dnDTabbedPane) {
         this.dnDTabbedPane=dnDTabbedPane;
         initComponents();
         btnNewProduct.addActionListener(new ActionListener() {
@@ -202,7 +202,7 @@ public class TabProducts {
         mostrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         mostrar.setFocusable(false);
     }
-    public TabPanel getContentPane() {
+    public TabPane getContentPane() {
         return contentPane;
     }
 

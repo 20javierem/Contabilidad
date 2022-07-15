@@ -4,7 +4,7 @@ package org.moreno.components;
 
 import javax.swing.*;
 
-public class TabPanel extends JPanel {
+public class TabPane extends JPanel {
     private String title;
     private Icon icon;
     private JButton option;

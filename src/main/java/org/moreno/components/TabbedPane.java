@@ -1,5 +1,6 @@
 package org.moreno.components;
 
+
 import org.moreno.App;
 import org.moreno.utilities.Utilities;
 
@@ -16,9 +17,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.function.BiConsumer;
 
-public class DnDTabbedPane extends JTabbedPane {
+public class TabbedPane extends JTabbedPane {
 
     public static final long serialVersionUID = 1L;
     private static final int LINEWIDTH = 3;
@@ -27,50 +27,69 @@ public class DnDTabbedPane extends JTabbedPane {
     private static GhostGlassPane s_glassPane = new GhostGlassPane();
     private boolean m_isDrawRect = false;
     private final Rectangle2D m_lineRect = new Rectangle2D.Double();
-    private final Color m_lineColor = new Color(0, 100, 255);
+    private final Color m_lineColor = new Color(0x3C7EC0);
     private TabAcceptor m_acceptor = null;
     private Double maxX=0.0;
     private Double maxY=0.0;
     private Double minX=0.0;
     private Double minY=0.0;
-    private JButton botonEsquina;
+    private JButton buttonEsquina=new JButton();
+    private JToolBar toolBar=new JToolBar();
 
     @Override
     public void removeTabAt(int index) {
         despintar();
         super.removeTabAt(index);
+        setVisibleButtonEsquina(getTabCount()>0);
         pintarSeleccionado();
-        verificarBoton(getTabCount()>0);
     }
 
     @Override
     public void removeAll() {
         despintar();
+        setVisibleButtonEsquina(false);
         super.removeAll();
-        verificarBoton(false);
     }
 
     @Override
     public void addTab(String title, Icon icon,Component component) {
-        super.addTab(title, icon,component,title);
+        super.addTab(title, icon,component);
         setTabComponentAt(indexOfTab(title), new Cross(this, title,icon));
-        verificarBoton(true);
         setSelectedComponent(getComponentAt(indexOfTab(title)));
         despintar();
         pintarSeleccionado();
+        setVisibleButtonEsquina(true);
+    }
+    @Override
+    public void addTab(String title,Component component) {
+        super.addTab(title, component);
+        setTabComponentAt(indexOfTab(title), new Cross(this, title));
+        setSelectedComponent(getComponentAt(indexOfTab(title)));
+        despintar();
+        pintarSeleccionado();
+        setVisibleButtonEsquina(true);
     }
 
-    private void verificarBoton(boolean estado){
-        if(botonEsquina!=null){
-            botonEsquina.setVisible(estado);
-        }
+    @Override
+    public void setSelectedIndex(int index) {
+        super.setSelectedIndex(index);
+        getComponentAt(index).requestFocus();
     }
 
+    @Override
+    public void setSelectedComponent(Component c) {
+        super.setSelectedComponent(c);
+        c.requestFocus();
+    }
+
+    private void setVisibleButtonEsquina(boolean istade){
+        toolBar.setVisible(istade);
+    }
     private void despintar(){
         for (Component component : getComponents()) {
             if(indexOfComponent(component)!=-1){
-                if(component instanceof TabPanel){
-                    TabPanel tabPane=(TabPanel) component;
+                if(component instanceof TabPane){
+                    TabPane tabPane=(TabPane) component;
                     if(tabPane.getOption()!=null){
                         tabPane.getOption().setBackground(new JButton().getBackground());
                         tabPane.getOption().setForeground(new JButton().getForeground());
@@ -79,6 +98,7 @@ public class DnDTabbedPane extends JTabbedPane {
             }
         }
     }
+
     public void verificarSelected(){
         despintar();
         pintarSeleccionado();
@@ -86,28 +106,18 @@ public class DnDTabbedPane extends JTabbedPane {
 
     public void pintarSeleccionado(){
         if(getSelectedIndex()!=-1){
-            if(getComponentAt(getSelectedIndex()) instanceof TabPanel){
-                TabPanel tabPanel=(TabPanel) getComponentAt(getSelectedIndex());
-                if(tabPanel.getOption()!=null){
-                    Utilities.buttonSelectedOrEntered2(tabPanel.getOption());
-                    tabPanel.getOption().setForeground(Color.white);
+            if(getComponentAt(getSelectedIndex()) instanceof TabPane){
+                TabPane tabPane =(TabPane) getComponentAt(getSelectedIndex());
+                if(tabPane.getOption()!=null){
+                    Utilities.buttonSelectedOrEntered2(tabPane.getOption());
+                    tabPane.getOption().setForeground(Color.white);
                 }
-                tabPanel.update();
+                tabPane.update();
             }
         }
     }
-    public void setBotonEsquina(JButton botonEsquina){
-        this.botonEsquina=botonEsquina;
-    }
 
-    public DnDTabbedPane() {
-        super();
-        getModel().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                verificarSelected();
-            }
-        });
+    private void insertarButtons(){
         //creacion de pop_up
         JPopupMenu pop_up = new JPopupMenu();
         JMenuItem cerrarPestaña = new JMenuItem("Cerrar Pestaña");
@@ -124,7 +134,7 @@ public class DnDTabbedPane extends JTabbedPane {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(getSelectedIndex()!=-1){
-                    TabPanel tab= (TabPanel) getComponentAt(getSelectedIndex());
+                    TabPane tab= (TabPane) getComponentAt(getSelectedIndex());
                     removeAll();
                     addTab(tab.getTitle(),tab.getIcon(),tab);
                 }
@@ -172,18 +182,43 @@ public class DnDTabbedPane extends JTabbedPane {
                         }else{
                             pop_up.show(getComponentAt(getMousePosition()),e.getX(),e.getY());
                         }
-
                     }
-
                 }
             }
         });
+
+        buttonEsquina.setIcon(new ImageIcon(App.class.getResource("Icons/x16/menu1.png")));
+        buttonEsquina.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                pop_up.show(buttonEsquina,e.getX(),e.getY());
+            }
+        });
+        toolBar.add(Box.createHorizontalGlue());
+        toolBar.add(buttonEsquina);
+        putClientProperty("JTabbedPane.trailingComponent", toolBar);
+        putClientProperty("JTabbedPane.tabInsets",new Insets(0,10,0,5));
+        putClientProperty("JTabbedPane.showTabSeparators",true);
+    }
+
+    public TabbedPane() {
+        super();
+        insertarButtons();
+        getModel().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                verificarSelected();
+            }
+        });
+
         //Modificación tabPane
         final DragSourceListener dsl = new DragSourceListener() {
+            @Override
             public void dragEnter(DragSourceDragEvent e) {
                 e.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
             }
 
+            @Override
             public void dragExit(DragSourceEvent e) {
                 e.getDragSourceContext()
                         .setCursor(DragSource.DefaultMoveNoDrop);
@@ -193,6 +228,7 @@ public class DnDTabbedPane extends JTabbedPane {
                 s_glassPane.repaint();
             }
 
+            @Override
             public void dragOver(DragSourceDragEvent e) {
                 TabTransferData data = getTabTransferData(e);
                 if (data == null) {
@@ -204,6 +240,12 @@ public class DnDTabbedPane extends JTabbedPane {
                         DragSource.DefaultMoveDrop);
             }
 
+            @Override
+            public void dropActionChanged(DragSourceDragEvent dsde) {
+
+            }
+
+            @Override
             public void dragDropEnd(DragSourceDropEvent e) {
                 m_isDrawRect = false;
                 m_lineRect.setRect(0, 0, 0, 0);
@@ -213,9 +255,6 @@ public class DnDTabbedPane extends JTabbedPane {
                     s_glassPane.setVisible(false);
                     s_glassPane.setImage(null);
                 }
-            }
-
-            public void dropActionChanged(DragSourceDragEvent e) {
             }
         };
 
@@ -230,7 +269,7 @@ public class DnDTabbedPane extends JTabbedPane {
                 initGlassPane(e.getComponent(), e.getDragOrigin(), dragTabIndex);
                 try {
                     e.startDrag(DragSource.DefaultMoveDrop,
-                            new TabTransferable(DnDTabbedPane.this, dragTabIndex), dsl);
+                            new TabTransferable(TabbedPane.this, dragTabIndex), dsl);
                 } catch (InvalidDnDOperationException idoe) {
                     idoe.printStackTrace();
                 }
@@ -242,10 +281,11 @@ public class DnDTabbedPane extends JTabbedPane {
         new DragSource().createDefaultDragGestureRecognizer(this,
                 DnDConstants.ACTION_COPY_OR_MOVE, dgl);
         m_acceptor = new TabAcceptor() {
-            public boolean isDropAcceptable(DnDTabbedPane a_component, int a_index) {
+            public boolean isDropAcceptable(TabbedPane a_component, int a_index) {
                 return true;
             }
         };
+        setVisibleButtonEsquina(getTabCount()>0);
     }
     public TabAcceptor getAcceptor() {
         return m_acceptor;
@@ -291,8 +331,8 @@ public class DnDTabbedPane extends JTabbedPane {
     class TabTransferable implements Transferable {
         private TabTransferData m_data = null;
 
-        public TabTransferable(DnDTabbedPane a_tabbedPane, int a_tabIndex) {
-            m_data = new TabTransferData(DnDTabbedPane.this, a_tabIndex);
+        public TabTransferable(TabbedPane a_tabbedPane, int a_tabIndex) {
+            m_data = new TabTransferData(TabbedPane.this, a_tabIndex);
         }
 
         public Object getTransferData(DataFlavor flavor) {
@@ -311,22 +351,22 @@ public class DnDTabbedPane extends JTabbedPane {
     }
 
     class TabTransferData {
-        private DnDTabbedPane m_tabbedPane = null;
+        private TabbedPane m_tabbedPane = null;
         private int m_tabIndex = -1;
 
         public TabTransferData() {
         }
 
-        public TabTransferData(DnDTabbedPane a_tabbedPane, int a_tabIndex) {
+        public TabTransferData(TabbedPane a_tabbedPane, int a_tabIndex) {
             m_tabbedPane = a_tabbedPane;
             m_tabIndex = a_tabIndex;
         }
 
-        public DnDTabbedPane getTabbedPane() {
+        public TabbedPane getTabbedPane() {
             return m_tabbedPane;
         }
 
-        public void setTabbedPane(DnDTabbedPane pane) {
+        public void setTabbedPane(TabbedPane pane) {
             m_tabbedPane = pane;
         }
 
@@ -364,8 +404,7 @@ public class DnDTabbedPane extends JTabbedPane {
             } break;
         } // switch
 
-        retval = SwingUtilities.convertPoint(DnDTabbedPane.this,
-                retval, s_glassPane);
+        retval = SwingUtilities.convertPoint(TabbedPane.this, retval, s_glassPane);
         return retval;
     }
 
@@ -388,8 +427,7 @@ public class DnDTabbedPane extends JTabbedPane {
         public void dragOver(final DropTargetDragEvent e) {
             TabTransferData data = getTabTransferData(e);
 
-            if (getTabPlacement() == JTabbedPane.TOP
-                    || getTabPlacement() == JTabbedPane.BOTTOM) {
+            if (getTabPlacement() == JTabbedPane.TOP || getTabPlacement() == JTabbedPane.BOTTOM) {
                 initTargetLeftRightLine(getTargetTabIndex(e.getLocation()), data);
             } else {
                 initTargetTopBottomLine(getTargetTabIndex(e.getLocation()), data);
@@ -427,12 +465,12 @@ public class DnDTabbedPane extends JTabbedPane {
             }
             TabTransferData data = getTabTransferData(e);
 
-            if (DnDTabbedPane.this == data.getTabbedPane()
+            if (TabbedPane.this == data.getTabbedPane()
                     && data.getTabIndex() >= 0) {
                 return true;
             }
 
-            if (DnDTabbedPane.this != data.getTabbedPane()) {
+            if (TabbedPane.this != data.getTabbedPane()) {
                 if (m_acceptor != null) {
                     return m_acceptor.isDropAcceptable(data.getTabbedPane(), data.getTabIndex());
                 }
@@ -454,12 +492,12 @@ public class DnDTabbedPane extends JTabbedPane {
 
             TabTransferData data = getTabTransferData(e);
 
-            if (DnDTabbedPane.this == data.getTabbedPane()
+            if (TabbedPane.this == data.getTabbedPane()
                     && data.getTabIndex() >= 0) {
                 return true;
             }
 
-            if (DnDTabbedPane.this != data.getTabbedPane()) {
+            if (TabbedPane.this != data.getTabbedPane()) {
                 if (m_acceptor != null) {
                     return m_acceptor.isDropAcceptable(data.getTabbedPane(), data.getTabIndex());
                 }
@@ -519,7 +557,7 @@ public class DnDTabbedPane extends JTabbedPane {
     }
 
     private void convertTab(TabTransferData a_data, int a_targetIndex) {
-        DnDTabbedPane source = a_data.getTabbedPane();
+        TabbedPane source = a_data.getTabbedPane();
         int sourceIndex = a_data.getTabIndex();
         if (sourceIndex < 0) {
             return;
@@ -531,7 +569,7 @@ public class DnDTabbedPane extends JTabbedPane {
         if (this != source) {
             source.remove(sourceIndex);
             if (a_targetIndex == getTabCount()) {
-                addTab(str,icon, cmp);
+                addTab(str, cmp);
             } else {
                 if (a_targetIndex < 0) {
                     a_targetIndex = 0;
@@ -582,16 +620,16 @@ public class DnDTabbedPane extends JTabbedPane {
             return;
         } else if (next == 0) {
             Rectangle rect = getBoundsAt(0);
-            m_lineRect.setRect(-LINEWIDTH / 2, rect.y, LINEWIDTH, rect.height);
+            m_lineRect.setRect(-LINEWIDTH, rect.y, LINEWIDTH, rect.height);
             m_isDrawRect = true;
         } else if (next == getTabCount()) {
             Rectangle rect = getBoundsAt(getTabCount() - 1);
-            m_lineRect.setRect(rect.x + rect.width - LINEWIDTH / 2, rect.y,
+            m_lineRect.setRect(rect.x + rect.width - LINEWIDTH , rect.y,
                     LINEWIDTH, rect.height);
             m_isDrawRect = true;
         } else {
             Rectangle rect = getBoundsAt(next - 1);
-            m_lineRect.setRect(rect.x + rect.width - LINEWIDTH / 2, rect.y,
+            m_lineRect.setRect(rect.x + rect.width - LINEWIDTH , rect.y,
                     LINEWIDTH, rect.height);
             m_isDrawRect = true;
         }
@@ -615,16 +653,16 @@ public class DnDTabbedPane extends JTabbedPane {
             return;
         } else if (next == getTabCount()) {
             Rectangle rect = getBoundsAt(getTabCount() - 1);
-            m_lineRect.setRect(rect.x, rect.y + rect.height - LINEWIDTH / 2,
+            m_lineRect.setRect(rect.x, rect.y + rect.height - LINEWIDTH,
                     rect.width, LINEWIDTH);
             m_isDrawRect = true;
         } else if (next == 0) {
             Rectangle rect = getBoundsAt(0);
-            m_lineRect.setRect(rect.x, -LINEWIDTH / 2, rect.width, LINEWIDTH);
+            m_lineRect.setRect(rect.x, -LINEWIDTH, rect.width, LINEWIDTH);
             m_isDrawRect = true;
         } else {
             Rectangle rect = getBoundsAt(next - 1);
-            m_lineRect.setRect(rect.x, rect.y + rect.height - LINEWIDTH / 2,
+            m_lineRect.setRect(rect.x, rect.y + rect.height - LINEWIDTH ,
                     rect.width, LINEWIDTH);
             m_isDrawRect = true;
         }
@@ -661,12 +699,13 @@ public class DnDTabbedPane extends JTabbedPane {
     }
 
     public interface TabAcceptor {
-        boolean isDropAcceptable(DnDTabbedPane a_component, int a_index);
+        boolean isDropAcceptable(TabbedPane a_component, int a_index);
     }
 }
+
 class Cross extends JPanel {
-    private JLabel L;
-    private JLabel B;
+    private JLabel title;
+    private JButton closeButton;
     private int size = 22;
     public Cross(final JTabbedPane jTabbedPane,String title){
         this(jTabbedPane,title,null);
@@ -678,54 +717,24 @@ class Cross extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
-        L = new JLabel(title+" ");
-        L.setIcon(icon);
-        L.setIconTextGap(5);
-        Dimension d = new Dimension(22, 22);
-        B = new JLabel();
-        B.setPreferredSize(d);
-        B.setMaximumSize(d);
-        B.setMinimumSize(d);
-        ImageIcon iconoNormal = getImage("cerrar.png");
-        ImageIcon iconoSegundo = getImage("cerrar2.png");
-        ImageIcon iconoTercero = getImage("cerrar3.png");
-        B.setToolTipText("Cerrar Pestaña " + title);
-        B.setIcon(iconoNormal);
-        //Listener para cierre de tabs con acceso estatico al `JTabbedPane`
-        B.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                B.setIcon(iconoSegundo);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                B.setIcon(iconoNormal);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                B.setIcon(iconoNormal);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                B.setIcon(iconoTercero);
-            }
-        });
-        add(L, gbc);
+        this.title = new JLabel(title+" ");
+        this.title.setForeground(new Color(0x3C7EC0));
+        this.title.setIcon(icon);
+        this.title.setIconTextGap(5);
+        closeButton = new JButton();
+        closeButton.setContentAreaFilled(false);
+        closeButton.setBorderPainted(false);
+        closeButton.setPreferredSize(new Dimension(20,20));
+        closeButton.setToolTipText("Cerrar Pestaña " + title);
+        closeButton.setIcon(getImage("close.png"));
+        closeButton.setRolloverIcon(getImage("close2.png"));
+        closeButton.setPressedIcon(getImage("close3.png"));
+        closeButton.addActionListener(e -> jTabbedPane.removeTabAt(jTabbedPane.indexOfTab(title)));
+        add(this.title, gbc);
         gbc.gridx++;
         gbc.weightx = 0;
-        add(B, gbc);
-        setBackground(Color.blue);
+        add(closeButton, gbc);
     }
-
     private ImageIcon getImage(String icono) {
         Image IMG = null;
         try {
@@ -737,7 +746,6 @@ class Cross extends JPanel {
         return new ImageIcon(IMG);
     }
 }
-
 class GhostGlassPane extends JPanel {
     public static final long serialVersionUID = 1L;
     private final AlphaComposite m_composite;
@@ -764,7 +772,6 @@ class GhostGlassPane extends JPanel {
         if (m_draggingGhost == null) {
             return 0;
         } // if
-
         return m_draggingGhost.getWidth(this);
     }
 

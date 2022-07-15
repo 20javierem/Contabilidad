@@ -1,16 +1,11 @@
 package org.moreno.views.menus;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-import org.moreno.components.DnDTabbedPane;
+import org.moreno.components.TabbedPane;
 import org.moreno.utilities.Utilities;
 import org.moreno.views.tabs.TabProducts;
 import org.moreno.views.tabs.TabRecords;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,11 +16,11 @@ public class MenuProductos {
     private JButton btnProducts;
     private JButton btnCardex;
     private JButton btnEntradasCanceladas;
-    private DnDTabbedPane tabContenido;
+    private TabbedPane tabContenido;
     private TabProducts tabProducts;
     private TabRecords tabRecords;
 
-    public MenuProductos(DnDTabbedPane tabContenido) {
+    public MenuProductos(TabbedPane tabContenido) {
         this.tabContenido = tabContenido;
         btnProducts.addActionListener(new ActionListener() {
             @Override

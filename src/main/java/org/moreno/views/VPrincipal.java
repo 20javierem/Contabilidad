@@ -1,8 +1,7 @@
 package org.moreno.views;
 
 import org.moreno.App;
-import org.moreno.components.DnDTabbedPane;
-import org.moreno.components.TabPanel;
+import org.moreno.components.TabbedPane;
 import org.moreno.controlers.Categorys;
 import org.moreno.controlers.Products;
 import org.moreno.controlers.Records;
@@ -10,7 +9,6 @@ import org.moreno.models.Category;
 import org.moreno.models.Product;
 import org.moreno.models.Record;
 import org.moreno.utilities.Contabilidad;
-import org.moreno.utilities.Utilities;
 import org.moreno.views.menus.MenuProductos;
 
 import javax.swing.*;
@@ -29,8 +27,8 @@ public class VPrincipal extends JFrame{
     private JButton btnGestionar;
     private JPanel panelMenus;
     private JLabel lblUsuario;
-    private DnDTabbedPane tabContenido;
     private JPanel panelDeTabPane;
+    private TabbedPane tabContenido;
     private MenuProductos menuProductos;
     public static Vector<Product> products;
     public static Vector<Category> categories;
@@ -96,7 +94,6 @@ public class VPrincipal extends JFrame{
         setExtendedState(MAXIMIZED_BOTH);
         quitarBordes();
         loadAll();
-        añadirButtonOnJTabedpane();
         menuProductos = new MenuProductos(tabContenido);
         setLocationRelativeTo(null);
         loadCursors();
@@ -116,68 +113,6 @@ public class VPrincipal extends JFrame{
         setLocationRelativeTo(null);
     }
 
-    private void añadirButtonOnJTabedpane() {
-        tabContenido.setAlignmentX(1.0f);
-        tabContenido.setAlignmentY(0.0f);
-        panelDeTabPane.setLayout(new OverlayLayout(panelDeTabPane));
-        JToolBar panelDeButon=new JToolBar();
-        panelDeButon.setLayout(new OverlayLayout(panelDeButon));
-        panelDeButon.setMaximumSize(new Dimension(25,32));
-        jButton = new JButton();
-        jButton.setMargin(new Insets(4, 1, 6, 1));
-        panelDeButon.setAlignmentX(1.0f);
-        panelDeButon.setAlignmentY(0.0f);
-//        jButton.setAlignmentX(1.0f);
-//        jButton.setAlignmentY(0.0f);
-//        jButton.setFocusPainted(false);
-        jButton.setIcon(new ImageIcon(App.class.getResource("Icons/x16/menu1.png")));
-        jButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Utilities.buttonSelectedOrEntered(jButton);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Utilities.buttonExited(jButton);
-            }
-        });
-        panelDeButon.add(jButton);
-        panelDeTabPane.add(panelDeButon);
-        panelDeTabPane.add(tabContenido);
-        JPopupMenu pop_up = new JPopupMenu();
-        JMenuItem cerrarPestaña = new JMenuItem("Cerrar Pestaña");
-        JMenuItem cerrarOtras = new JMenuItem("Cerrar Otras Pestañas");
-        JMenuItem cerrarTodas = new JMenuItem("Cerrar Todas Las Pestañas");
-        cerrarPestaña.addActionListener(e -> {
-            if (tabContenido.getSelectedIndex() != -1) {
-                tabContenido.removeTabAt(tabContenido.getSelectedIndex());
-            }
-        });
-        cerrarOtras.addActionListener(e -> {
-            if (tabContenido.getSelectedIndex() != -1) {
-                TabPanel tab = (TabPanel) tabContenido.getComponentAt(tabContenido.getSelectedIndex());
-                tabContenido.removeAll();
-                tabContenido.addTab(tab.getTitle(), tab.getIcon(), tab);
-            }
-        });
-        cerrarTodas.addActionListener(e -> {
-            tabContenido.removeAll();
-        });
-        pop_up.add(cerrarPestaña);
-        pop_up.addSeparator();
-        pop_up.add(cerrarOtras);
-        pop_up.add(cerrarTodas);
-        jButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1) {
-                    pop_up.show(jButton, e.getX(), e.getY());
-                }
-            }
-        });
-        tabContenido.setBotonEsquina(jButton);
-    }
 
     private boolean salir() {
         int sioNo = JOptionPane.showOptionDialog(tabContenido.getRootPane(), "¿Está seguro?", "Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "Si");
